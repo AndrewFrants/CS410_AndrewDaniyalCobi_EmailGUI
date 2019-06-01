@@ -23,6 +23,8 @@ import java.awt.Font;
 import javax.swing.UIManager;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class App extends JFrame {
 
@@ -56,43 +58,44 @@ public class App extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 664, 50);
-		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 6, 0, 0));
+		JPanel pnlTabs = new JPanel();
+		pnlTabs.setBounds(10, 11, 664, 50);
+		contentPane.add(pnlTabs);
+		pnlTabs.setLayout(new GridLayout(0, 6, 0, 0));
 		
-		JButton btnNewButton = new JButton("Main");
-		panel.add(btnNewButton);
+		JButton btnMain = new JButton("Main");
+		pnlTabs.add(btnMain);
 		
-		JButton btnNewButton_1 = new JButton("Email");
-		panel.add(btnNewButton_1);
+		JButton btnEmail = new JButton("Email");
+		
+		pnlTabs.add(btnEmail);
 		
 		JButton btnNewButton_2 = new JButton("Calendar");
-		panel.add(btnNewButton_2);
+		pnlTabs.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Contacts");
-		panel.add(btnNewButton_3);
+		pnlTabs.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Accounts");
-		panel.add(btnNewButton_4);
+		pnlTabs.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Settings");
-		panel.add(btnNewButton_5);
+		pnlTabs.add(btnNewButton_5);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(20, 72, 654, 329);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel pnlBody = new JPanel();
+		pnlBody.setBounds(20, 72, 654, 329);
+		contentPane.add(pnlBody);
+		pnlBody.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 0, 654, 88);
-		panel_1.add(panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		JPanel pnlTop = new JPanel();
+		pnlTop.setBounds(0, 0, 654, 88);
+		pnlBody.add(pnlTop);
+		GridBagLayout gbl_pnlTop = new GridBagLayout();
+		gbl_pnlTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlTop.rowHeights = new int[]{0, 0, 0};
+		gbl_pnlTop.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlTop.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		pnlTop.setLayout(gbl_pnlTop);
 		
 		JLabel lblNewLabel = new JLabel("Search:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -100,14 +103,14 @@ public class App extends JFrame {
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 0;
-		panel_2.add(lblNewLabel, gbc_lblNewLabel);
+		pnlTop.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sort:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 4;
 		gbc_lblNewLabel_1.gridy = 0;
-		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		pnlTop.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -116,7 +119,7 @@ public class App extends JFrame {
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 1;
-		panel_2.add(textField, gbc_textField);
+		pnlTop.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
@@ -126,40 +129,40 @@ public class App extends JFrame {
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 4;
 		gbc_comboBox.gridy = 1;
-		panel_2.add(comboBox, gbc_comboBox);
+		pnlTop.add(comboBox, gbc_comboBox);
 		
 		JButton btnNewButton_6 = new JButton("Reply");
 		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 		gbc_btnNewButton_6.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_6.gridx = 9;
 		gbc_btnNewButton_6.gridy = 1;
-		panel_2.add(btnNewButton_6, gbc_btnNewButton_6);
+		pnlTop.add(btnNewButton_6, gbc_btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("Open");
 		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
 		gbc_btnNewButton_7.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_7.gridx = 10;
 		gbc_btnNewButton_7.gridy = 1;
-		panel_2.add(btnNewButton_7, gbc_btnNewButton_7);
+		pnlTop.add(btnNewButton_7, gbc_btnNewButton_7);
 		
 		JButton btnNewButton_8 = new JButton("Mark As read");
 		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
 		gbc_btnNewButton_8.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_8.gridx = 11;
 		gbc_btnNewButton_8.gridy = 1;
-		panel_2.add(btnNewButton_8, gbc_btnNewButton_8);
+		pnlTop.add(btnNewButton_8, gbc_btnNewButton_8);
 		
 		JButton btnNewButton_9 = new JButton("Delete");
 		GridBagConstraints gbc_btnNewButton_9 = new GridBagConstraints();
 		gbc_btnNewButton_9.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_9.gridx = 12;
 		gbc_btnNewButton_9.gridy = 1;
-		panel_2.add(btnNewButton_9, gbc_btnNewButton_9);
+		pnlTop.add(btnNewButton_9, gbc_btnNewButton_9);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 86, 654, 243);
-		panel_1.add(panel_3);
-		panel_3.setLayout(null);
+		JPanel pnlBottom = new JPanel();
+		pnlBottom.setBounds(0, 86, 654, 243);
+		pnlBody.add(pnlBottom);
+		pnlBottom.setLayout(null);
 		
 		JList list = new JList();
 		list.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -176,7 +179,7 @@ public class App extends JFrame {
 				return values[index];
 			}
 		});
-		panel_3.add(list);
+		pnlBottom.add(list);
 		
 		JList list_1 = new JList();
 		list_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -191,13 +194,29 @@ public class App extends JFrame {
 				return values[index];
 			}
 		});
-		panel_3.add(list_1);
+		pnlBottom.add(list_1);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(235, -4, 419, 247);
-		panel_3.add(textArea);
+		pnlBottom.add(textArea);
 		
+		btnMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+		pnlBody.setVisible(true);
+	
+				
+			}
+		});
+		btnEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+		pnlBody.setVisible(false);
+	
+				
+			}
+		});
 		
 		
 	}
