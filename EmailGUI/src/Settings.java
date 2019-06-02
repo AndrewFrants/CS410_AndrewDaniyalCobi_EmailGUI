@@ -93,22 +93,26 @@ public class Settings extends JFrame {
 		btnNewButton_2.setBounds(0, 0, 107, 23);
 		Settings_Panel.add(btnNewButton_2);
 		
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(118, 0, 536, 324);
+		Settings_Panel.add(layeredPane);
+		
 		
 		JLayeredPane UISettingsPane = new JLayeredPane();
-		UISettingsPane.setBounds(109, 0, 545, 324);
-		Settings_Panel.add(UISettingsPane);
+		UISettingsPane.setBounds(0, 0, 545, 324);
+		layeredPane.add(UISettingsPane);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Dark Mode");
-		chckbxNewCheckBox.setBounds(0, 0, 77, 23);
+		chckbxNewCheckBox.setBounds(0, 0, 100, 23);
 		UISettingsPane.add(chckbxNewCheckBox);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Show BCC field");
-		chckbxNewCheckBox_1.setBounds(0, 23, 97, 23);
+		chckbxNewCheckBox_1.setBounds(0, 23, 130, 23);
 		UISettingsPane.add(chckbxNewCheckBox_1);
 		
 		JPanel StorageSettingsPane = new JPanel();
 		StorageSettingsPane.setBounds(0, 0, 545, 324);
-		UISettingsPane.add(StorageSettingsPane);
+		layeredPane.add(StorageSettingsPane);
 		StorageSettingsPane.setLayout(null);
 		
 		sqlDatabaseName = new JTextField();
@@ -142,10 +146,6 @@ public class Settings extends JFrame {
 				StorageSettingsPane.setVisible(false);
 			}
 		});
-		
-		JPanel lowerView = new JPanel();
-		lowerView.setBounds(20, 72, 654, 329);
-		contentPane.add(lowerView);
 		
 		JTabbedPane navTabPane = new JTabbedPane(JTabbedPane.TOP);
 		navTabPane.setBounds(20, 11, 654, 61);
