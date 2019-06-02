@@ -33,10 +33,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JLayeredPane;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class Settings extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField sqlConnectionStringTextBox;
+	private JTextField sqlDatabaseName;
 
 	/**
 	 * Launch the application.
@@ -71,6 +75,7 @@ public class Settings extends JFrame {
 		Settings_Panel.setLayout(null);
 		
 		JButton btnNewButton_1 = new JButton("Storage");
+
 		btnNewButton_1.setBounds(0, 23, 108, 23);
 		Settings_Panel.add(btnNewButton_1);
 		
@@ -79,28 +84,45 @@ public class Settings extends JFrame {
 		Settings_Panel.add(btnNewButton_3);
 		
 		JButton btnNewButton_2 = new JButton("UI");
+
 		btnNewButton_2.setBounds(0, 0, 108, 23);
 		Settings_Panel.add(btnNewButton_2);
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.05);
-		splitPane.setBounds(0, 0, 654, 341);
-		Settings_Panel.add(splitPane);
+		JPanel StorageSettings = new JPanel();
+		StorageSettings.setBounds(136, 0, 518, 328);
+		Settings_Panel.add(StorageSettings);
+		StorageSettings.setLayout(null);
 		
-		JLayeredPane UISettings = new JLayeredPane();
-		splitPane.setRightComponent(UISettings);
+		sqlDatabaseName = new JTextField();
+		sqlDatabaseName.setBounds(192, 109, 265, 20);
+		StorageSettings.add(sqlDatabaseName);
+		sqlDatabaseName.setColumns(10);
+		
+		sqlConnectionStringTextBox = new JTextField();
+		sqlConnectionStringTextBox.setBounds(192, 140, 265, 20);
+		StorageSettings.add(sqlConnectionStringTextBox);
+		sqlConnectionStringTextBox.setColumns(10);
+		
+		JLabel lblSqlConnectionString = new JLabel("SQL connection string");
+		lblSqlConnectionString.setBounds(10, 112, 119, 14);
+		StorageSettings.add(lblSqlConnectionString);
+		
+		JLabel lblSqlDatabase = new JLabel("SQL Database");
+		lblSqlDatabase.setBounds(10, 143, 119, 14);
+		StorageSettings.add(lblSqlDatabase);
+		
+		JPanel UISettings = new JPanel();
+		UISettings.setBounds(136, 0, 518, 328);
+		Settings_Panel.add(UISettings);
+		UISettings.setLayout(null);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Dark Mode");
-		chckbxNewCheckBox.setBounds(6, 7, 97, 23);
+		chckbxNewCheckBox.setBounds(0, 5, 77, 23);
 		UISettings.add(chckbxNewCheckBox);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Show BCC field");
-		chckbxNewCheckBox_1.setBounds(6, 33, 97, 23);
+		chckbxNewCheckBox_1.setBounds(0, 33, 97, 23);
 		UISettings.add(chckbxNewCheckBox_1);
-		
-		JLayeredPane StorageSettings = new JLayeredPane();
-		splitPane.add(StorageSettings);
-		StorageSettings.setBounds(0, 0, 536, 339);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(20, 11, 506, 61);
@@ -128,6 +150,18 @@ public class Settings extends JFrame {
 		panel.add(btnCancel);
 		
 		
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UISettings.setVisible(true);
+				StorageSettings.setVisible(false);
+			}
+		});
 		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UISettings.setVisible(false);
+				StorageSettings.setVisible(true);
+			}
+		});
 	}
 }
