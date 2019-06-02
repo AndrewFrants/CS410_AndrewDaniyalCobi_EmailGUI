@@ -65,6 +65,72 @@ public class App extends JFrame {
 		JLayeredPane pnlEmailBody = new JLayeredPane();
 		pnlEmailBody.setBounds(20, 72, 654, 329);
 		pnlEmailBody.setVisible(false);
+		
+		JLayeredPane pnlCalendarBody = new JLayeredPane();
+		pnlCalendarBody.setBounds(20, 72, 654, 329);
+		contentPane.add(pnlCalendarBody);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 84, 314, 245);
+		pnlCalendarBody.add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewLabel = new JLabel("Select date...");
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(UIManager.getColor("ComboBox.selectionBackground"));
+		panel_1.setBounds(0, 0, 654, 85);
+		pnlCalendarBody.add(panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0, 0, 30, 30, 30, 30, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JButton btnNewButton = new JButton("Add");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
+		gbc_btnRemove.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemove.gridx = 1;
+		gbc_btnRemove.gridy = 0;
+		panel_1.add(btnRemove, gbc_btnRemove);
+		
+		JLabel lblDateAndTime = new JLabel("Date and Time");
+		GridBagConstraints gbc_lblDateAndTime = new GridBagConstraints();
+		gbc_lblDateAndTime.gridx = 13;
+		gbc_lblDateAndTime.gridy = 0;
+		panel_1.add(lblDateAndTime, gbc_lblDateAndTime);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(324, 84, 330, 245);
+		pnlCalendarBody.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("Schedule...");
+		panel_2.add(lblNewLabel_1, BorderLayout.NORTH);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"EVENT1", "EVENT2", "EVENT3"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel_2.add(list, BorderLayout.CENTER);
 		contentPane.add(pnlEmailBody);
 		
 		JPanel pnlEmailMid = new JPanel();
@@ -336,6 +402,13 @@ public class App extends JFrame {
 		pnlTabs.add(btnEmail);
 		
 		JButton btnCalendar = new JButton("Calendar");
+		btnCalendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnlMainBody.setVisible(false);
+				pnlEmailBody.setVisible(false);
+				pnlCalendarBody.setVisible(true);
+			}
+		});
 		pnlTabs.add(btnCalendar);
 		
 		JButton btnContacts = new JButton("Contacts");
@@ -347,11 +420,15 @@ public class App extends JFrame {
 		JButton btnSettings = new JButton("Settings");
 		pnlTabs.add(btnSettings);
 		
+		pnlCalendarBody.setVisible(false);
+		pnlMainBody.setVisible(true);
+		pnlEmailBody.setVisible(false);
 		btnMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 		pnlMainBody.setVisible(true);
 		pnlEmailBody.setVisible(false);
+		pnlCalendarBody.setVisible(false);
 	
 				
 			}
@@ -361,6 +438,7 @@ public class App extends JFrame {
 				
 		pnlMainBody.setVisible(false);
 		pnlEmailBody.setVisible(true);
+		pnlCalendarBody.setVisible(false);
 				
 			}
 		});
