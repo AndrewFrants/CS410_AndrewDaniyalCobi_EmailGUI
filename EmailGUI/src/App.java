@@ -26,6 +26,10 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class App extends JFrame {
 
@@ -66,62 +70,33 @@ public class App extends JFrame {
 		pnlEmailBody.setBounds(20, 72, 654, 329);
 		pnlEmailBody.setVisible(false);
 		
-		JLayeredPane pnlCalendarBody = new JLayeredPane();
-		pnlCalendarBody.setBounds(20, 72, 654, 329);
-		contentPane.add(pnlCalendarBody);
+		JLayeredPane pnlMainBody = new JLayeredPane();
+		pnlMainBody.setBounds(20, 72, 654, 329);
+		contentPane.add(pnlMainBody);
+		pnlMainBody.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 84, 314, 245);
-		pnlCalendarBody.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel pnlMainBottom = new JPanel();
+		pnlMainBottom.setBounds(0, 86, 654, 243);
+		pnlMainBody.add(pnlMainBottom);
+		pnlMainBottom.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select date...");
-		panel.add(lblNewLabel);
+		JList listFolders = new JList();
+		listFolders.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if(listFolders.getSelectedIndex() == 1 ) {
+					System.out.println("TEST");
+				}
+			}
+		});
+	
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(UIManager.getColor("ComboBox.selectionBackground"));
-		panel_1.setBounds(0, 0, 654, 85);
-		pnlCalendarBody.add(panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {0, 0, 0, 30, 30, 30, 30, 0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
-		
-		JButton btnNewButton = new JButton("Add");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 0;
-		panel_1.add(btnNewButton, gbc_btnNewButton);
-		
-		JButton btnRemove = new JButton("Remove");
-		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
-		gbc_btnRemove.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRemove.gridx = 1;
-		gbc_btnRemove.gridy = 0;
-		panel_1.add(btnRemove, gbc_btnRemove);
-		
-		JLabel lblDateAndTime = new JLabel("Date and Time");
-		GridBagConstraints gbc_lblDateAndTime = new GridBagConstraints();
-		gbc_lblDateAndTime.gridx = 13;
-		gbc_lblDateAndTime.gridy = 0;
-		panel_1.add(lblDateAndTime, gbc_lblDateAndTime);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(324, 84, 330, 245);
-		pnlCalendarBody.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblNewLabel_1 = new JLabel("Schedule...");
-		panel_2.add(lblNewLabel_1, BorderLayout.NORTH);
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"EVENT1", "EVENT2", "EVENT3"};
+		listFolders.setBorder(new LineBorder(new Color(0, 0, 0)));
+		listFolders.setBounds(0, 13, 66, 216);
+		listFolders.setBackground(UIManager.getColor("Button.background"));
+		listFolders.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		listFolders.setLayoutOrientation(JList.VERTICAL_WRAP);
+		listFolders.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Inbox", "Sent", "Spam", "Trash", "Outbox"};
 			public int getSize() {
 				return values.length;
 			}
@@ -129,8 +104,107 @@ public class App extends JFrame {
 				return values[index];
 			}
 		});
-		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel_2.add(list, BorderLayout.CENTER);
+		pnlMainBottom.add(listFolders);
+		
+		JList listEmails = new JList();
+		listEmails.setBorder(new LineBorder(new Color(0, 0, 0)));
+		listEmails.setBackground(UIManager.getColor("Button.background"));
+		listEmails.setBounds(76, 0, 149, 243);
+		listEmails.setModel(new AbstractListModel() {
+			String[] values = new String[] {"From: Sender..................."};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		pnlMainBottom.add(listEmails);
+		listFolders.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(listFolders.getSelectedIndex() == 1) {
+					System.out.println("test");
+				}
+			}
+		});
+		JTextArea txtEmailMessage = new JTextArea();
+		txtEmailMessage.setEditable(false);
+		txtEmailMessage.setBounds(235, -4, 419, 247);
+		pnlMainBottom.add(txtEmailMessage);
+		
+		JPanel pnlMainTop = new JPanel();
+		pnlMainTop.setBounds(0, 0, 654, 88);
+		pnlMainBody.add(pnlMainTop);
+		GridBagLayout gbl_pnlMainTop = new GridBagLayout();
+		gbl_pnlMainTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlMainTop.rowHeights = new int[]{0, 0, 0};
+		gbl_pnlMainTop.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlMainTop.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		pnlMainTop.setLayout(gbl_pnlMainTop);
+		
+		JLabel lblSearch = new JLabel("Search:");
+		GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+		gbc_lblSearch.anchor = GridBagConstraints.EAST;
+		gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSearch.gridx = 1;
+		gbc_lblSearch.gridy = 0;
+		pnlMainTop.add(lblSearch, gbc_lblSearch);
+		
+		JLabel lblSort = new JLabel("Sort:");
+		GridBagConstraints gbc_lblSort = new GridBagConstraints();
+		gbc_lblSort.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSort.gridx = 4;
+		gbc_lblSort.gridy = 0;
+		pnlMainTop.add(lblSort, gbc_lblSort);
+		
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.gridwidth = 2;
+		gbc_txtSearch.insets = new Insets(0, 0, 0, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.gridx = 1;
+		gbc_txtSearch.gridy = 1;
+		pnlMainTop.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
+		
+		JComboBox cmbSort = new JComboBox();
+		cmbSort.setModel(new DefaultComboBoxModel(new String[] {"Date", "Alphabetically", "Read/Unread"}));
+		GridBagConstraints gbc_cmbSort = new GridBagConstraints();
+		gbc_cmbSort.insets = new Insets(0, 0, 0, 5);
+		gbc_cmbSort.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cmbSort.gridx = 4;
+		gbc_cmbSort.gridy = 1;
+		pnlMainTop.add(cmbSort, gbc_cmbSort);
+		
+		JButton btnReply = new JButton("Reply");
+		GridBagConstraints gbc_btnReply = new GridBagConstraints();
+		gbc_btnReply.insets = new Insets(0, 0, 0, 5);
+		gbc_btnReply.gridx = 9;
+		gbc_btnReply.gridy = 1;
+		pnlMainTop.add(btnReply, gbc_btnReply);
+		
+		JButton btnOpen = new JButton("Open");
+		GridBagConstraints gbc_btnOpen = new GridBagConstraints();
+		gbc_btnOpen.insets = new Insets(0, 0, 0, 5);
+		gbc_btnOpen.gridx = 10;
+		gbc_btnOpen.gridy = 1;
+		pnlMainTop.add(btnOpen, gbc_btnOpen);
+		
+		JButton btnMarkRead = new JButton("Mark As read");
+		GridBagConstraints gbc_btnMarkRead = new GridBagConstraints();
+		gbc_btnMarkRead.insets = new Insets(0, 0, 0, 5);
+		gbc_btnMarkRead.gridx = 11;
+		gbc_btnMarkRead.gridy = 1;
+		pnlMainTop.add(btnMarkRead, gbc_btnMarkRead);
+		
+		JButton btnDelete = new JButton("Delete");
+		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
+		gbc_btnDelete.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDelete.gridx = 12;
+		gbc_btnDelete.gridy = 1;
+		pnlMainTop.add(btnDelete, gbc_btnDelete);
+		pnlMainBody.setVisible(true);
 		contentPane.add(pnlEmailBody);
 		
 		JPanel pnlEmailMid = new JPanel();
@@ -224,6 +298,17 @@ public class App extends JFrame {
 		pnlEmailTop.setLayout(gbl_pnlEmailTop);
 		
 		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String emailTo = txtTo.getText();
+				String emailCC = txtCC.getText();
+				String emailSubject = txtSubject.getText();
+				String emailMessage = txtEmailTextEditor.getText();
+				
+				Email sendEmail = new Email("me", emailTo, emailCC, emailSubject, emailMessage);
+				System.out.println(sendEmail.generateEmail());
+			}
+		});
 		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
 		gbc_btnSend.insets = new Insets(0, 0, 0, 5);
@@ -269,25 +354,64 @@ public class App extends JFrame {
 		gbc_btnCancel.gridx = 9;
 		gbc_btnCancel.gridy = 0;
 		pnlEmailTop.add(btnCancel, gbc_btnCancel);
+		pnlEmailBody.setVisible(false);
 		
-		JLayeredPane pnlMainBody = new JLayeredPane();
-		pnlMainBody.setBounds(20, 72, 654, 329);
-		contentPane.add(pnlMainBody);
-		pnlMainBody.setLayout(null);
+		JLayeredPane pnlCalendarBody = new JLayeredPane();
+		pnlCalendarBody.setBounds(20, 72, 654, 329);
+		contentPane.add(pnlCalendarBody);
 		
-		JPanel pnlMainBottom = new JPanel();
-		pnlMainBottom.setBounds(0, 86, 654, 243);
-		pnlMainBody.add(pnlMainBottom);
-		pnlMainBottom.setLayout(null);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 84, 314, 245);
+		pnlCalendarBody.add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JList listFolders = new JList();
-		listFolders.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listFolders.setBounds(0, 13, 66, 216);
-		listFolders.setBackground(UIManager.getColor("Button.background"));
-		listFolders.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		listFolders.setLayoutOrientation(JList.VERTICAL_WRAP);
-		listFolders.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Inbox", "Sent", "Spam", "Trash", "Outbox"};
+		JLabel lblNewLabel = new JLabel("Select date...");
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(UIManager.getColor("ComboBox.selectionBackground"));
+		panel_1.setBounds(0, 0, 654, 85);
+		pnlCalendarBody.add(panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0, 0, 30, 30, 30, 30, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JButton btnNewButton = new JButton("Add");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
+		gbc_btnRemove.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemove.gridx = 1;
+		gbc_btnRemove.gridy = 0;
+		panel_1.add(btnRemove, gbc_btnRemove);
+		
+		JLabel lblDateAndTime = new JLabel("Date and Time");
+		GridBagConstraints gbc_lblDateAndTime = new GridBagConstraints();
+		gbc_lblDateAndTime.gridx = 13;
+		gbc_lblDateAndTime.gridy = 0;
+		panel_1.add(lblDateAndTime, gbc_lblDateAndTime);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(324, 84, 330, 245);
+		pnlCalendarBody.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("Schedule...");
+		panel_2.add(lblNewLabel_1, BorderLayout.NORTH);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"EVENT1", "EVENT2", "EVENT3"};
 			public int getSize() {
 				return values.length;
 			}
@@ -295,99 +419,8 @@ public class App extends JFrame {
 				return values[index];
 			}
 		});
-		pnlMainBottom.add(listFolders);
-		
-		JList listEmails = new JList();
-		listEmails.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listEmails.setBackground(UIManager.getColor("Button.background"));
-		listEmails.setBounds(76, 0, 149, 243);
-		listEmails.setModel(new AbstractListModel() {
-			String[] values = new String[] {"From: Sender..................."};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		pnlMainBottom.add(listEmails);
-		
-		JTextArea txtEmailMessage = new JTextArea();
-		txtEmailMessage.setEditable(false);
-		txtEmailMessage.setBounds(235, -4, 419, 247);
-		pnlMainBottom.add(txtEmailMessage);
-		
-		JPanel pnlMainTop = new JPanel();
-		pnlMainTop.setBounds(0, 0, 654, 88);
-		pnlMainBody.add(pnlMainTop);
-		GridBagLayout gbl_pnlMainTop = new GridBagLayout();
-		gbl_pnlMainTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pnlMainTop.rowHeights = new int[]{0, 0, 0};
-		gbl_pnlMainTop.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnlMainTop.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		pnlMainTop.setLayout(gbl_pnlMainTop);
-		
-		JLabel lblSearch = new JLabel("Search:");
-		GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-		gbc_lblSearch.anchor = GridBagConstraints.EAST;
-		gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSearch.gridx = 1;
-		gbc_lblSearch.gridy = 0;
-		pnlMainTop.add(lblSearch, gbc_lblSearch);
-		
-		JLabel lblSort = new JLabel("Sort:");
-		GridBagConstraints gbc_lblSort = new GridBagConstraints();
-		gbc_lblSort.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSort.gridx = 4;
-		gbc_lblSort.gridy = 0;
-		pnlMainTop.add(lblSort, gbc_lblSort);
-		
-		txtSearch = new JTextField();
-		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
-		gbc_txtSearch.gridwidth = 2;
-		gbc_txtSearch.insets = new Insets(0, 0, 0, 5);
-		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSearch.gridx = 1;
-		gbc_txtSearch.gridy = 1;
-		pnlMainTop.add(txtSearch, gbc_txtSearch);
-		txtSearch.setColumns(10);
-		
-		JComboBox cmbSort = new JComboBox();
-		cmbSort.setModel(new DefaultComboBoxModel(new String[] {"Date", "Alphabetically", "Read/Unread"}));
-		GridBagConstraints gbc_cmbSort = new GridBagConstraints();
-		gbc_cmbSort.insets = new Insets(0, 0, 0, 5);
-		gbc_cmbSort.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cmbSort.gridx = 4;
-		gbc_cmbSort.gridy = 1;
-		pnlMainTop.add(cmbSort, gbc_cmbSort);
-		
-		JButton btnReply = new JButton("Reply");
-		GridBagConstraints gbc_btnReply = new GridBagConstraints();
-		gbc_btnReply.insets = new Insets(0, 0, 0, 5);
-		gbc_btnReply.gridx = 9;
-		gbc_btnReply.gridy = 1;
-		pnlMainTop.add(btnReply, gbc_btnReply);
-		
-		JButton btnOpen = new JButton("Open");
-		GridBagConstraints gbc_btnOpen = new GridBagConstraints();
-		gbc_btnOpen.insets = new Insets(0, 0, 0, 5);
-		gbc_btnOpen.gridx = 10;
-		gbc_btnOpen.gridy = 1;
-		pnlMainTop.add(btnOpen, gbc_btnOpen);
-		
-		JButton btnMarkRead = new JButton("Mark As read");
-		GridBagConstraints gbc_btnMarkRead = new GridBagConstraints();
-		gbc_btnMarkRead.insets = new Insets(0, 0, 0, 5);
-		gbc_btnMarkRead.gridx = 11;
-		gbc_btnMarkRead.gridy = 1;
-		pnlMainTop.add(btnMarkRead, gbc_btnMarkRead);
-		
-		JButton btnDelete = new JButton("Delete");
-		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
-		gbc_btnDelete.insets = new Insets(0, 0, 0, 5);
-		gbc_btnDelete.gridx = 12;
-		gbc_btnDelete.gridy = 1;
-		pnlMainTop.add(btnDelete, gbc_btnDelete);
+		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel_2.add(list, BorderLayout.CENTER);
 		
 		JPanel pnlTabs = new JPanel();
 		pnlTabs.setBounds(10, 11, 664, 50);
@@ -421,8 +454,6 @@ public class App extends JFrame {
 		pnlTabs.add(btnSettings);
 		
 		pnlCalendarBody.setVisible(false);
-		pnlMainBody.setVisible(true);
-		pnlEmailBody.setVisible(false);
 		btnMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
