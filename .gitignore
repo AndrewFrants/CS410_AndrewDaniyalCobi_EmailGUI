@@ -2,3 +2,4 @@
 *.prefs
 EmailGUI/.project
 EmailGUI/.classpath
+*.jar
