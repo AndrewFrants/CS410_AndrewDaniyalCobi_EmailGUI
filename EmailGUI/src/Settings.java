@@ -35,12 +35,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JLayeredPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import net.miginfocom.swing.MigLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Settings extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField sqlConnectionStringTextBox;
 	private JTextField sqlDatabaseName;
+	private JTextField currentDataTextBox;
+	private JTextField txtSearch;
+	private JTextField searchEmailTextField;
 
 	/**
 	 * Launch the application.
@@ -69,99 +77,229 @@ public class Settings extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel Settings_Panel = new JPanel();
-		Settings_Panel.setBounds(20, 72, 654, 329);
+		JLayeredPane Settings_Panel = new JLayeredPane();
+		Settings_Panel.setBounds(20, 77, 654, 324);
 		contentPane.add(Settings_Panel);
-		Settings_Panel.setLayout(null);
-		
-		JButton btnNewButton_1 = new JButton("Storage");
-
-		btnNewButton_1.setBounds(0, 23, 108, 23);
-		Settings_Panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_3 = new JButton("Keyboard Shortcuts");
 		btnNewButton_3.setBounds(0, 46, 108, 23);
 		Settings_Panel.add(btnNewButton_3);
 		
+		JButton btnNewButton_1 = new JButton("Storage");
+		btnNewButton_1.setBounds(0, 23, 108, 23);
+		Settings_Panel.add(btnNewButton_1);
+		
 		JButton btnNewButton_2 = new JButton("UI");
-
-		btnNewButton_2.setBounds(0, 0, 108, 23);
+		btnNewButton_2.setBounds(0, 0, 107, 23);
 		Settings_Panel.add(btnNewButton_2);
 		
-		JPanel StorageSettings = new JPanel();
-		StorageSettings.setBounds(136, 0, 518, 328);
-		Settings_Panel.add(StorageSettings);
-		StorageSettings.setLayout(null);
+		
+		JLayeredPane UISettingsPane = new JLayeredPane();
+		UISettingsPane.setBounds(109, 0, 545, 324);
+		Settings_Panel.add(UISettingsPane);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Dark Mode");
+		chckbxNewCheckBox.setBounds(0, 0, 77, 23);
+		UISettingsPane.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Show BCC field");
+		chckbxNewCheckBox_1.setBounds(0, 23, 97, 23);
+		UISettingsPane.add(chckbxNewCheckBox_1);
+		
+		JPanel StorageSettingsPane = new JPanel();
+		StorageSettingsPane.setBounds(0, 0, 545, 324);
+		UISettingsPane.add(StorageSettingsPane);
+		StorageSettingsPane.setLayout(null);
 		
 		sqlDatabaseName = new JTextField();
 		sqlDatabaseName.setBounds(192, 109, 265, 20);
-		StorageSettings.add(sqlDatabaseName);
+		StorageSettingsPane.add(sqlDatabaseName);
 		sqlDatabaseName.setColumns(10);
 		
 		sqlConnectionStringTextBox = new JTextField();
 		sqlConnectionStringTextBox.setBounds(192, 140, 265, 20);
-		StorageSettings.add(sqlConnectionStringTextBox);
+		StorageSettingsPane.add(sqlConnectionStringTextBox);
 		sqlConnectionStringTextBox.setColumns(10);
 		
 		JLabel lblSqlConnectionString = new JLabel("SQL connection string");
 		lblSqlConnectionString.setBounds(10, 112, 119, 14);
-		StorageSettings.add(lblSqlConnectionString);
+		StorageSettingsPane.add(lblSqlConnectionString);
 		
 		JLabel lblSqlDatabase = new JLabel("SQL Database");
 		lblSqlDatabase.setBounds(10, 143, 119, 14);
-		StorageSettings.add(lblSqlDatabase);
+		StorageSettingsPane.add(lblSqlDatabase);
 		
-		JPanel UISettings = new JPanel();
-		UISettings.setBounds(136, 0, 518, 328);
-		Settings_Panel.add(UISettings);
-		UISettings.setLayout(null);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UISettingsPane.setVisible(false);
+				StorageSettingsPane.setVisible(true);
+			}
+		});
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Dark Mode");
-		chckbxNewCheckBox.setBounds(0, 5, 77, 23);
-		UISettings.add(chckbxNewCheckBox);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UISettingsPane.setVisible(true);
+				StorageSettingsPane.setVisible(false);
+			}
+		});
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Show BCC field");
-		chckbxNewCheckBox_1.setBounds(0, 33, 97, 23);
-		UISettings.add(chckbxNewCheckBox_1);
+		JPanel lowerView = new JPanel();
+		lowerView.setBounds(20, 72, 654, 329);
+		contentPane.add(lowerView);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(20, 11, 506, 61);
-		contentPane.add(tabbedPane);
+		JTabbedPane navTabPane = new JTabbedPane(JTabbedPane.TOP);
+		navTabPane.setBounds(20, 11, 654, 61);
+		contentPane.add(navTabPane);
 		
-		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_4, null);
+		JPanel navMainTab = new JPanel();
+		navMainTab.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				Settings_Panel.setVisible(false);
+			}
+		});
+
+		navTabPane.addTab("Main", null, navMainTab, null);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Settings", null, panel, null);
+		searchEmailTextField = new JTextField();
+		searchEmailTextField.setText("Search email...");
+		navMainTab.add(searchEmailTextField);
+		searchEmailTextField.setColumns(20);
+		
+		JButton btnReply = new JButton("Reply");
+		navMainTab.add(btnReply);
+		
+		JButton btnMarkAsRead = new JButton("Mark as Read");
+		navMainTab.add(btnMarkAsRead);
+		
+		JButton btnDelete = new JButton("Delete");
+		navMainTab.add(btnDelete);
+		
+		JPanel navEmailTab = new JPanel();
+
+		navTabPane.addTab("Email", null, navEmailTab, null);
+		navEmailTab.setLayout(null);
+		
+		JLayeredPane writeEmailPane = new JLayeredPane();
+		writeEmailPane.setBounds(0, 0, 649, 33);
+		navEmailTab.add(writeEmailPane);
+		writeEmailPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnSend = new JButton("Send");
+		writeEmailPane.add(btnSend);
+		
+		JButton btnSaveDraft = new JButton("Save Draft");
+		btnSaveDraft.setEnabled(false);
+		writeEmailPane.add(btnSaveDraft);
+		
+		JButton btnPrint = new JButton("Print");
+		btnPrint.setEnabled(false);
+		writeEmailPane.add(btnPrint);
+		
+		JButton btnInsert = new JButton("Insert");
+		writeEmailPane.add(btnInsert);
+		
+		JButton btnCancel_1 = new JButton("Cancel");
+		writeEmailPane.add(btnCancel_1);
+		
+		JLayeredPane readEmailPane = new JLayeredPane();
+		readEmailPane.setBounds(0, 0, 649, 33);
+		navEmailTab.add(readEmailPane);
+		readEmailPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnNewButton_6 = new JButton("Print");
+		readEmailPane.add(btnNewButton_6);
+		btnNewButton_6.setEnabled(false);
+		
+		JButton btnNewButton_7 = new JButton("Export");
+		readEmailPane.add(btnNewButton_7);
+		btnNewButton_7.setEnabled(false);
+		
+		JButton btnNewButton_8 = new JButton("Move");
+		readEmailPane.add(btnNewButton_8);
+		btnNewButton_8.setEnabled(false);
+		
+		JButton btnNewButton_9 = new JButton("Delete");
+		readEmailPane.add(btnNewButton_9);
+		
+		JButton btnReplyClick = new JButton("Reply");
+		readEmailPane.add(btnReplyClick);
+		
+		JPanel navCalendarTab = new JPanel();
+		navTabPane.addTab("Calendar", null, navCalendarTab, null);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.setEnabled(false);
+		btnAdd.setVerticalAlignment(SwingConstants.TOP);
+		btnAdd.setHorizontalAlignment(SwingConstants.LEFT);
+		navCalendarTab.add(btnAdd);
+		
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.setEnabled(false);
+		btnRemove.setHorizontalAlignment(SwingConstants.LEFT);
+		navCalendarTab.add(btnRemove);
+		
+		JButton button_2 = new JButton("Cancel");
+		button_2.setVerticalAlignment(SwingConstants.TOP);
+		button_2.setHorizontalAlignment(SwingConstants.LEFT);
+		button_2.setEnabled(false);
+		navCalendarTab.add(button_2);
+		
+		currentDataTextBox = new JTextField();
+		currentDataTextBox.setText("Saturday, June 1 2019");
+		currentDataTextBox.setHorizontalAlignment(SwingConstants.CENTER);
+		currentDataTextBox.setEditable(false);
+		navCalendarTab.add(currentDataTextBox);
+		currentDataTextBox.setColumns(25);
+		
+		JPanel navContacts = new JPanel();
+		navTabPane.addTab("Contacts", null, navContacts, null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ascending", "Descending"}));
+		comboBox.setSelectedIndex(0);
+		navContacts.add(comboBox);
+		
+		txtSearch = new JTextField();
+		txtSearch.setText("Search...");
+		navContacts.add(txtSearch);
+		txtSearch.setColumns(10);
+		
+		JButton btnNewButton_4 = new JButton("Add Favoties");
+		btnNewButton_4.setEnabled(false);
+		navContacts.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("Add contact");
+		navContacts.add(btnNewButton_5);
+		
+		JPanel navAccountTab = new JPanel();
+		navTabPane.addTab("Accounts", null, navAccountTab, null);
+		
+		JButton btnNewButton_10 = new JButton("New button");
+		navAccountTab.add(btnNewButton_10);
+		
+		JPanel navSettingsTab = new JPanel();
+		navSettingsTab.addComponentListener(new ComponentAdapter() {
+				@Override
+				public void componentShown(ComponentEvent e) {
+					Settings_Panel.setVisible(true);
+				}
+			});
+		navTabPane.addTab("Settings", null, navSettingsTab, null);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setVerticalAlignment(SwingConstants.TOP);
 		btnSave.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(btnSave);
+		navSettingsTab.add(btnSave);
 		
 		JButton btnNewButton = new JButton("Restore Default");
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(btnNewButton);
+		navSettingsTab.add(btnNewButton);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setEnabled(false);
 		btnCancel.setVerticalAlignment(SwingConstants.TOP);
 		btnCancel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(btnCancel);
-		
-		
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UISettings.setVisible(true);
-				StorageSettings.setVisible(false);
-			}
-		});
-		
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UISettings.setVisible(false);
-				StorageSettings.setVisible(true);
-			}
-		});
+		navSettingsTab.add(btnCancel);
 	}
 }
