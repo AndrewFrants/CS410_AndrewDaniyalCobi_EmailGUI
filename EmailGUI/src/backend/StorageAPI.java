@@ -3,19 +3,6 @@
  */
 package backend;
 
-interface IStorageManager {
-	
-	int openConnection(int type);
-	
-	void addOrUpdateData(int id, byte[] data);
-	
-	void search(String searchStr);
-	
-	byte[] getData(int key);
-	
-	void deleteData(int key);
-}
-
 /**
  * @author andreyf
  * This component would look at received/saved emails
@@ -23,7 +10,7 @@ interface IStorageManager {
  * it will also save it in the DB, however search functionality
  * will be disabled.
  */
-public class StorageManager implements IStorageManager {
+public class StorageAPI implements IStorageAPI {
 
 	@Override
 	public int openConnection(int type) {

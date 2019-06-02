@@ -5,32 +5,13 @@ package backend;
 
 import java.awt.List;
 
-interface IEmail {
-	
-	List get_To_Addresses();
-	List get_From_Addresses();
-	
-	byte[] getMessageBody();
 
-	boolean hasAttachments();
-	
-	List getAttachments();
-}
-
-interface IMailManager {
-	
-	int OpenConnection();
-	
-	List getNewEmails();
-	
-	void deleteEmail();
-}
 
 /**
  * @author andreyf
  *
  */
-public class MailManager implements IMailManager {
+public class MailAPI implements IMailAPI {
 
 	@Override
 	public int OpenConnection() {
