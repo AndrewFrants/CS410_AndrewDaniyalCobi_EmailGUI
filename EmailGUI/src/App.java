@@ -66,6 +66,210 @@ public class App extends JFrame {
 		pnlEmailBody.setBounds(20, 72, 654, 329);
 		pnlEmailBody.setVisible(false);
 		
+		JLayeredPane pnlCalendarBody = new JLayeredPane();
+		pnlCalendarBody.setBounds(20, 72, 654, 329);
+		contentPane.add(pnlCalendarBody);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 84, 314, 245);
+		pnlCalendarBody.add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewLabel = new JLabel("Select date...");
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(UIManager.getColor("ComboBox.selectionBackground"));
+		panel_1.setBounds(0, 0, 654, 85);
+		pnlCalendarBody.add(panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0, 0, 30, 30, 30, 30, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JButton btnNewButton = new JButton("Add");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
+		gbc_btnRemove.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemove.gridx = 1;
+		gbc_btnRemove.gridy = 0;
+		panel_1.add(btnRemove, gbc_btnRemove);
+		
+		JLabel lblDateAndTime = new JLabel("Date and Time");
+		GridBagConstraints gbc_lblDateAndTime = new GridBagConstraints();
+		gbc_lblDateAndTime.gridx = 13;
+		gbc_lblDateAndTime.gridy = 0;
+		panel_1.add(lblDateAndTime, gbc_lblDateAndTime);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(324, 84, 330, 245);
+		pnlCalendarBody.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("Schedule...");
+		panel_2.add(lblNewLabel_1, BorderLayout.NORTH);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"EVENT1", "EVENT2", "EVENT3"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel_2.add(list, BorderLayout.CENTER);
+		contentPane.add(pnlEmailBody);
+		
+		JPanel pnlEmailMid = new JPanel();
+		pnlEmailMid.setBounds(0, 42, 654, 94);
+		pnlEmailBody.add(pnlEmailMid);
+		GridBagLayout gbl_pnlEmailMid = new GridBagLayout();
+		gbl_pnlEmailMid.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlEmailMid.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_pnlEmailMid.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlEmailMid.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		pnlEmailMid.setLayout(gbl_pnlEmailMid);
+		
+		JLabel lblTo = new JLabel("To");
+		GridBagConstraints gbc_lblTo = new GridBagConstraints();
+		gbc_lblTo.anchor = GridBagConstraints.EAST;
+		gbc_lblTo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTo.gridx = 0;
+		gbc_lblTo.gridy = 0;
+		pnlEmailMid.add(lblTo, gbc_lblTo);
+		
+		txtTo = new JTextField();
+		GridBagConstraints gbc_txtTo = new GridBagConstraints();
+		gbc_txtTo.fill = GridBagConstraints.VERTICAL;
+		gbc_txtTo.anchor = GridBagConstraints.WEST;
+		gbc_txtTo.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTo.gridx = 1;
+		gbc_txtTo.gridy = 0;
+		pnlEmailMid.add(txtTo, gbc_txtTo);
+		txtTo.setColumns(40);
+		
+		JButton btnDirectory = new JButton("Directory");
+		btnDirectory.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnDirectory = new GridBagConstraints();
+		gbc_btnDirectory.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDirectory.gridx = 8;
+		gbc_btnDirectory.gridy = 0;
+		pnlEmailMid.add(btnDirectory, gbc_btnDirectory);
+		
+		JLabel lblCC = new JLabel("CC");
+		GridBagConstraints gbc_lblCC = new GridBagConstraints();
+		gbc_lblCC.anchor = GridBagConstraints.EAST;
+		gbc_lblCC.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCC.gridx = 0;
+		gbc_lblCC.gridy = 1;
+		pnlEmailMid.add(lblCC, gbc_lblCC);
+		
+		txtCC = new JTextField();
+		GridBagConstraints gbc_txtCC = new GridBagConstraints();
+		gbc_txtCC.anchor = GridBagConstraints.WEST;
+		gbc_txtCC.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCC.gridx = 1;
+		gbc_txtCC.gridy = 1;
+		pnlEmailMid.add(txtCC, gbc_txtCC);
+		txtCC.setColumns(40);
+		
+		JLabel lblSubject = new JLabel("Subject");
+		GridBagConstraints gbc_lblSubject = new GridBagConstraints();
+		gbc_lblSubject.anchor = GridBagConstraints.EAST;
+		gbc_lblSubject.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSubject.gridx = 0;
+		gbc_lblSubject.gridy = 2;
+		pnlEmailMid.add(lblSubject, gbc_lblSubject);
+		
+		txtSubject = new JTextField();
+		GridBagConstraints gbc_txtSubject = new GridBagConstraints();
+		gbc_txtSubject.anchor = GridBagConstraints.WEST;
+		gbc_txtSubject.insets = new Insets(0, 0, 0, 5);
+		gbc_txtSubject.gridx = 1;
+		gbc_txtSubject.gridy = 2;
+		pnlEmailMid.add(txtSubject, gbc_txtSubject);
+		txtSubject.setColumns(40);
+		
+		JPanel pnlEmailBottom = new JPanel();
+		pnlEmailBottom.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		pnlEmailBottom.setBounds(0, 319, 654, -183);
+		pnlEmailBody.add(pnlEmailBottom);
+		
+		JTextArea txtEmailTextEditor = new JTextArea();
+		pnlEmailBody.setLayer(txtEmailTextEditor, 0);
+		txtEmailTextEditor.setBounds(0, 136, 654, 193);
+		pnlEmailBody.add(txtEmailTextEditor);
+		
+		JPanel pnlEmailTop = new JPanel();
+		pnlEmailTop.setBounds(0, 0, 654, 42);
+		pnlEmailBody.add(pnlEmailTop);
+		GridBagLayout gbl_pnlEmailTop = new GridBagLayout();
+		gbl_pnlEmailTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlEmailTop.rowHeights = new int[]{0, 0};
+		gbl_pnlEmailTop.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlEmailTop.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		pnlEmailTop.setLayout(gbl_pnlEmailTop);
+		
+		JButton btnSend = new JButton("Send");
+		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		GridBagConstraints gbc_btnSend = new GridBagConstraints();
+		gbc_btnSend.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSend.gridx = 0;
+		gbc_btnSend.gridy = 0;
+		pnlEmailTop.add(btnSend, gbc_btnSend);
+		
+		JButton btnSendDraft = new JButton("Save Draft");
+		btnSendDraft.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnSendDraft = new GridBagConstraints();
+		gbc_btnSendDraft.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSendDraft.gridx = 5;
+		gbc_btnSendDraft.gridy = 0;
+		pnlEmailTop.add(btnSendDraft, gbc_btnSendDraft);
+		
+		JButton btnPrint = new JButton("Print");
+		btnPrint.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnPrint = new GridBagConstraints();
+		gbc_btnPrint.insets = new Insets(0, 0, 0, 5);
+		gbc_btnPrint.gridx = 6;
+		gbc_btnPrint.gridy = 0;
+		pnlEmailTop.add(btnPrint, gbc_btnPrint);
+		
+		JButton btnAttachment = new JButton("Attachment");
+		btnAttachment.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnAttachment = new GridBagConstraints();
+		gbc_btnAttachment.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAttachment.gridx = 7;
+		gbc_btnAttachment.gridy = 0;
+		pnlEmailTop.add(btnAttachment, gbc_btnAttachment);
+		
+		JButton btnFont = new JButton("Font");
+		btnFont.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnFont = new GridBagConstraints();
+		gbc_btnFont.insets = new Insets(0, 0, 0, 5);
+		gbc_btnFont.gridx = 8;
+		gbc_btnFont.gridy = 0;
+		pnlEmailTop.add(btnFont, gbc_btnFont);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.gridx = 9;
+		gbc_btnCancel.gridy = 0;
+		pnlEmailTop.add(btnCancel, gbc_btnCancel);
+		
 		JLayeredPane pnlMainBody = new JLayeredPane();
 		pnlMainBody.setBounds(20, 72, 654, 329);
 		contentPane.add(pnlMainBody);
@@ -184,95 +388,6 @@ public class App extends JFrame {
 		gbc_btnDelete.gridx = 12;
 		gbc_btnDelete.gridy = 1;
 		pnlMainTop.add(btnDelete, gbc_btnDelete);
-		contentPane.add(pnlEmailBody);
-		
-		JPanel pnlEmailTop = new JPanel();
-		pnlEmailTop.setBounds(0, 0, 654, 87);
-		pnlEmailBody.add(pnlEmailTop);
-		GridBagLayout gbl_pnlEmailTop = new GridBagLayout();
-		gbl_pnlEmailTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pnlEmailTop.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_pnlEmailTop.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnlEmailTop.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		pnlEmailTop.setLayout(gbl_pnlEmailTop);
-		
-		JLabel lblTo = new JLabel("To");
-		GridBagConstraints gbc_lblTo = new GridBagConstraints();
-		gbc_lblTo.anchor = GridBagConstraints.EAST;
-		gbc_lblTo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTo.gridx = 0;
-		gbc_lblTo.gridy = 0;
-		pnlEmailTop.add(lblTo, gbc_lblTo);
-		
-		txtTo = new JTextField();
-		GridBagConstraints gbc_txtTo = new GridBagConstraints();
-		gbc_txtTo.fill = GridBagConstraints.VERTICAL;
-		gbc_txtTo.anchor = GridBagConstraints.WEST;
-		gbc_txtTo.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTo.gridx = 1;
-		gbc_txtTo.gridy = 0;
-		pnlEmailTop.add(txtTo, gbc_txtTo);
-		txtTo.setColumns(30);
-		
-		JLabel lblCC = new JLabel("CC");
-		GridBagConstraints gbc_lblCC = new GridBagConstraints();
-		gbc_lblCC.anchor = GridBagConstraints.EAST;
-		gbc_lblCC.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCC.gridx = 0;
-		gbc_lblCC.gridy = 1;
-		pnlEmailTop.add(lblCC, gbc_lblCC);
-		
-		txtCC = new JTextField();
-		GridBagConstraints gbc_txtCC = new GridBagConstraints();
-		gbc_txtCC.anchor = GridBagConstraints.WEST;
-		gbc_txtCC.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCC.gridx = 1;
-		gbc_txtCC.gridy = 1;
-		pnlEmailTop.add(txtCC, gbc_txtCC);
-		txtCC.setColumns(30);
-		
-		JButton btnCancel = new JButton("Cancel");
-		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCancel.gridx = 3;
-		gbc_btnCancel.gridy = 1;
-		pnlEmailTop.add(btnCancel, gbc_btnCancel);
-		
-		JButton btnSend = new JButton("Send");
-		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		GridBagConstraints gbc_btnSend = new GridBagConstraints();
-		gbc_btnSend.gridwidth = 3;
-		gbc_btnSend.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSend.gridx = 5;
-		gbc_btnSend.gridy = 1;
-		pnlEmailTop.add(btnSend, gbc_btnSend);
-		
-		JLabel lblSubject = new JLabel("Subject");
-		GridBagConstraints gbc_lblSubject = new GridBagConstraints();
-		gbc_lblSubject.anchor = GridBagConstraints.EAST;
-		gbc_lblSubject.insets = new Insets(0, 0, 0, 5);
-		gbc_lblSubject.gridx = 0;
-		gbc_lblSubject.gridy = 2;
-		pnlEmailTop.add(lblSubject, gbc_lblSubject);
-		
-		txtSubject = new JTextField();
-		GridBagConstraints gbc_txtSubject = new GridBagConstraints();
-		gbc_txtSubject.anchor = GridBagConstraints.WEST;
-		gbc_txtSubject.insets = new Insets(0, 0, 0, 5);
-		gbc_txtSubject.gridx = 1;
-		gbc_txtSubject.gridy = 2;
-		pnlEmailTop.add(txtSubject, gbc_txtSubject);
-		txtSubject.setColumns(30);
-		
-		JPanel pnlEmailBottom = new JPanel();
-		pnlEmailBottom.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		pnlEmailBottom.setBounds(0, 319, 654, -232);
-		pnlEmailBody.add(pnlEmailBottom);
-		
-		JTextArea txtEmailTextEditor = new JTextArea();
-		pnlEmailBody.setLayer(txtEmailTextEditor, 0);
-		txtEmailTextEditor.setBounds(0, 84, 654, 245);
-		pnlEmailBody.add(txtEmailTextEditor);
 		
 		JPanel pnlTabs = new JPanel();
 		pnlTabs.setBounds(10, 11, 664, 50);
@@ -287,6 +402,13 @@ public class App extends JFrame {
 		pnlTabs.add(btnEmail);
 		
 		JButton btnCalendar = new JButton("Calendar");
+		btnCalendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnlMainBody.setVisible(false);
+				pnlEmailBody.setVisible(false);
+				pnlCalendarBody.setVisible(true);
+			}
+		});
 		pnlTabs.add(btnCalendar);
 		
 		JButton btnContacts = new JButton("Contacts");
@@ -298,11 +420,15 @@ public class App extends JFrame {
 		JButton btnSettings = new JButton("Settings");
 		pnlTabs.add(btnSettings);
 		
+		pnlCalendarBody.setVisible(false);
+		pnlMainBody.setVisible(true);
+		pnlEmailBody.setVisible(false);
 		btnMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 		pnlMainBody.setVisible(true);
 		pnlEmailBody.setVisible(false);
+		pnlCalendarBody.setVisible(false);
 	
 				
 			}
@@ -312,6 +438,7 @@ public class App extends JFrame {
 				
 		pnlMainBody.setVisible(false);
 		pnlEmailBody.setVisible(true);
+		pnlCalendarBody.setVisible(false);
 				
 			}
 		});
