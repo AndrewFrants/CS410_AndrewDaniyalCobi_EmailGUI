@@ -3,3 +3,5 @@
 EmailGUI/.project
 EmailGUI/.classpath
 *.jar
+EmailGUI/miglayout15-swing.jar
+EmailGUI/miglayout-src.zip
