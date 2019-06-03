@@ -3,8 +3,9 @@
  */
 package backend;
 
-import java.awt.List;
+import java.util.List;
 
+import test.MockEmail;
 
 
 /**
@@ -14,15 +15,16 @@ import java.awt.List;
 public class MailAPI implements IMailAPI {
 
 	@Override
-	public int OpenConnection() {
+	public int openConnection() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List getNewEmails() {
-		// TODO Auto-generated method stub
-		return null;
+	public List getNewEmails(List knownEmails) {
+		
+		// TODO switch to storage call 
+		return MockEmail.CreateMockEmails(2, 0, true);
 	}
 
 	@Override
@@ -30,6 +32,4 @@ public class MailAPI implements IMailAPI {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

@@ -1,13 +1,16 @@
 package backend;
 
-import java.awt.List;
+import java.util.List;
+
+import controller.IContact;
 
 public interface IDirectoryAdapter {
 	
 	int openConnection();
 	
 	/*
-	 * Get the list of IContacts
+	 * Search will return up to ~5 contacts at a time
+	 * The return type is a list of IContact
 	 */
-	List searchUser(String srchString, String srchFirst, String srchLast);
+	List<IContact> searchUser(String srchString, String srchFirst, String srchLast);
 }

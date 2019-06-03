@@ -3,7 +3,7 @@
  */
 package controller;
 
-import java.awt.List;
+import java.util.List;
 
 import backend.IDirectoryAdapter;
 import backend.IMailAPI;

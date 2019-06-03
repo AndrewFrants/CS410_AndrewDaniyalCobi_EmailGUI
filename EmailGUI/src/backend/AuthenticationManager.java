@@ -3,26 +3,16 @@
  */
 package backend;
 
-import java.awt.List;
+import java.util.List;
 
 import controller.IAccountsManager;
 
-
-/* 
- * Internal to Backend
- * If a backend service relies on token based auth
- * this interface will be passed to it to get the token
- */
-interface IToken {
-
-	String getAuthToken();
-}
 
 /**
  * @author andreyf
  *
  */
-public class SecurityManager implements IAccountsManager,  IVirusScanner, IToken {
+public class AuthenticationManager implements IAccountsManager,  IVirusScanner, IToken {
 
 	@Override
 	public String getAuthToken() {

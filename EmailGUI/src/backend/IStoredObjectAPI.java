@@ -9,7 +9,7 @@ public interface IStoredObjectAPI<T> {
 	/*
 	 * The unique key
 	 */
-	int getKey();
+	long getKey();
 	
 	/*
 	 * This helps the storage manager know which table to use

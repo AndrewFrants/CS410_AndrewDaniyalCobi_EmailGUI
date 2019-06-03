@@ -3,6 +3,9 @@
  */
 package backend;
 
+import java.util.Hashtable;
+import java.util.List;
+
 /**
  * @author andreyf
  * This component would look at received/saved emails
@@ -12,6 +15,13 @@ package backend;
  */
 public class StorageAPI implements IStorageAPI {
 
+	Hashtable<Long, Object> inMemoryStorage;
+	
+	public StorageAPI()
+	{
+		inMemoryStorage = new Hashtable<Long, Object>();
+	}
+	
 	@Override
 	public int openConnection(int type) {
 
@@ -43,27 +53,27 @@ public class StorageAPI implements IStorageAPI {
 	}
 
 	@Override
-	public void addOrUpdateData(int id, byte[] data) {
+	public void addOrUpdateData(long id, byte[] data) {
 		// TODO Auto-generated method stub
+		this.inMemoryStorage.put(id, data);
+	}
+
+	@Override
+	public byte[] getData(long key) {
+		// TODO Auto-generated method stub
+		return (byte[])this.inMemoryStorage.get(key);
+	}
+
+	@Override
+	public void deleteData(long key) {
+		this.inMemoryStorage.remove(key);
 		
 	}
 
 	@Override
-	public byte[] getData(int key) {
-		// TODO Auto-generated method stub
+	public List search(String searchStr) {
+		// TODO return some mock items
 		return null;
-	}
-
-	@Override
-	public void deleteData(int key) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void search(String searchStr) {
-		// TODO Auto-generated method stub
-		
 	}
 
 

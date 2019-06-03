@@ -3,7 +3,7 @@
  */
 package controller;
 
-import java.awt.List;
+import java.util.List;
 
 import backend.IStoredObjectAPI;
 
@@ -13,7 +13,7 @@ import backend.IStoredObjectAPI;
  */
 public interface IEmail extends IStoredObjectAPI {
 	
-	int getId();
+	long getId();
 	
 	List getToAddresses();
 	List getFromAddresses();

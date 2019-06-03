@@ -1,11 +1,11 @@
 package controller;
 
-import java.awt.List;
+import java.util.List;
 
 public class Email implements IEmail {
 
 	@Override
-	public int getKey() {
+	public long getKey() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -29,7 +29,7 @@ public class Email implements IEmail {
 	}
 
 	@Override
-	public int getId() {
+	public long getId() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

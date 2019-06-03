@@ -1,14 +1,16 @@
 package backend;
 
+import java.util.List;
+
 public interface IStorageAPI {
 	
 	int openConnection(int type);
 	
-	void addOrUpdateData(int id, byte[] data);
+	void addOrUpdateData(long id, byte[] data);
 	
-	void search(String searchStr);
+	List search(String searchStr);
 	
-	byte[] getData(int key);
+	byte[] getData(long key);
 	
-	void deleteData(int key);
+	void deleteData(long key);
 }

@@ -1,6 +1,6 @@
 package controller;
 
-interface IContact {
+public interface IContact {
 	
 	boolean hasThumbnail();
 	

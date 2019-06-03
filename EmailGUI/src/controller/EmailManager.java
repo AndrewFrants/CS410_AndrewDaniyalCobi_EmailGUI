@@ -3,7 +3,9 @@
  */
 package controller;
 
-import java.awt.List;
+import java.util.List;
+
+import backend.IMailAPI;
 
 /**
  * @author andreyf
@@ -14,7 +16,7 @@ public class EmailManager implements IEmailManager {
 	/**
 	 * 
 	 */
-	public EmailManager() {
+	public EmailManager(IMailAPI mailAPI) {
 		// TODO Auto-generated constructor stub
 	}
 
