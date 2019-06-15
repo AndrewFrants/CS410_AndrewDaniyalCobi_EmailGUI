@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import backend.DirectoryAdapter;
+import backend.IAccountsManager;
 import backend.IDirectoryAdapter;
 import backend.IMailAPI;
 import backend.IStorageAPI;
@@ -18,7 +19,6 @@ import backend.IToken;
 import backend.IVirusScanner;
 import backend.MailAPI;
 import backend.StorageAPI;
-import controller.IAccountsManager;
 
 class MockSecurityManager implements IAccountsManager,  IVirusScanner, IToken {
 

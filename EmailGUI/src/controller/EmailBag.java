@@ -15,15 +15,18 @@ public class EmailBag implements IEmailFolder {
 	/**
 	 * 
 	 */
+	List<IEmail> emails;
+	
 	public EmailBag(String folderName, IEmailManager mgr) {
 		// TODO Auto-generated constructor stub
+		emails = Email.CreateEmails(14, 0, false);
 	}
 
 
 	@Override
 	public List getEmails() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return emails;
 	}
 
 	@Override

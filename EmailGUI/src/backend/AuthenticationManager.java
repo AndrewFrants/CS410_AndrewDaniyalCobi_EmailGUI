@@ -5,8 +5,6 @@ package backend;
 
 import java.util.List;
 
-import controller.IAccountsManager;
-
 
 /**
  * @author andreyf

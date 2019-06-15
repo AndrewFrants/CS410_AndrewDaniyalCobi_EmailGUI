@@ -1,7 +1,11 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Email {
+import controller.IEmail;
+
+public class Email implements IEmail {
 
 	private String sender;
 	private String recipient;
@@ -9,7 +13,8 @@ public class Email {
 	private String subject;
 	private LocalDateTime date;
 	private String message;
-
+	private long id;
+	
 	public Email(String sender, String recipient, String cc, String subject, String message) {
 		this.sender = sender;
 		this.recipient = recipient;
@@ -17,23 +22,86 @@ public class Email {
 		this.subject = subject;
 		this.message = message;
 		this.date = LocalDateTime.now();
-
+		this.id = id;
 	}
 
 	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public String getSender() {
-		return sender;
+
+	@Override
+	public long getKey() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 
-	public String getRecipient() {
-		return recipient;
+	@Override
+	public int getObjectType() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public String getMessage() {
-		return message;
+	@Override
+	public byte[] serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object deserialize(byte[] serialized) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+
+	@Override
+	public List getToAddresses() {
+
+		List<String> toAddresses = new ArrayList<String>();
+		toAddresses.add(this.recipient);
+		
+		return toAddresses;
+	}
+
+	@Override
+	public List getFromAddresses() {
+		List<String> fromAddresses = new ArrayList<String>();
+		fromAddresses.add(this.sender);
+		return fromAddresses;
+	}
+
+	@Override
+	public String setMessageBody() {
+		return this.message;
+	}
+
+	@Override
+	public void AddAttachments(List attachments) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMessageBodyString() {
+		return this.message;
+	}
+
+	@Override
+	public boolean hasAttachments() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List getAttachments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String generateEmail() {
@@ -45,4 +113,9 @@ public class Email {
 		
 	}
 
+	@Override
+	public String getSubject() {
+		// TODO Auto-generated method stub
+		return this.subject;
+	}
 }

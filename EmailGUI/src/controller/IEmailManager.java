@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IEmailManager {
 
-	List getEmails(String folderName);
+	List<IEmail> getEmails(String folderName);
 	
 	
 	List getEmailsDelta(String folderName, List prevList);

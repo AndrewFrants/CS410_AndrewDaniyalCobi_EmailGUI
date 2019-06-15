@@ -1,14 +1,9 @@
 /**
  * 
  */
-package controller;
+package backend;
 
 import java.util.List;
-
-import backend.IDirectoryAdapter;
-import backend.IMailAPI;
-import backend.IStorageAPI;
-import backend.IVirusScanner;
 
 /*
  * This class is the entry point to the application

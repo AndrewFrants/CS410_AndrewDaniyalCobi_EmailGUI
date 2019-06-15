@@ -13,17 +13,15 @@ import backend.IMailAPI;
  */
 public class EmailManager implements IEmailManager {
 
-	/**
-	 * 
-	 */
+	EmailBag emails;
+	
 	public EmailManager(IMailAPI mailAPI) {
-		// TODO Auto-generated constructor stub
+		emails = new EmailBag("folderName", this);
 	}
 
 	@Override
 	public List getEmails(String folderName) {
-		// TODO Auto-generated method stub
-		return null;
+		return emails.getEmails();
 	}
 
 	@Override

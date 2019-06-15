@@ -30,6 +30,8 @@ public interface IEmail extends IStoredObjectAPI {
 	
 	String getMessageBodyString();
 
+	String getSubject();
+
 	boolean hasAttachments();
 	
 	List getAttachments();

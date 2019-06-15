@@ -136,4 +136,10 @@ public class MockEmail implements IEmail {
 		
 		return emails;
 	}
+
+	@Override
+	public String getSubject() {
+		// TODO Auto-generated method stub
+		return this.subject;
+	}
 }
