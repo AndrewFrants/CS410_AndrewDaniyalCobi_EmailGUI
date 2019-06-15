@@ -45,6 +45,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class App extends JFrame {
 
@@ -102,7 +105,7 @@ public class App extends JFrame {
 		contentPane.add(pnlEmailBody);
 		
 		JPanel pnlEmailMid = new JPanel();
-		pnlEmailMid.setBounds(0, 42, 654, 94);
+		pnlEmailMid.setBounds(0, 0, 654, 94);
 		pnlEmailBody.add(pnlEmailMid);
 		GridBagLayout gbl_pnlEmailMid = new GridBagLayout();
 		gbl_pnlEmailMid.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -165,24 +168,36 @@ public class App extends JFrame {
 		
 		JPanel pnlEmailBottom = new JPanel();
 		pnlEmailBottom.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		pnlEmailBottom.setBounds(0, 319, 654, -183);
+		pnlEmailBottom.setBounds(0, 319, 654, -252);
 		pnlEmailBody.add(pnlEmailBottom);
 		
 		JTextArea txtEmailTextEditor = new JTextArea();
 		pnlEmailBody.setLayer(txtEmailTextEditor, 0);
-		txtEmailTextEditor.setBounds(0, 136, 654, 193);
+		txtEmailTextEditor.setBounds(0, 94, 654, 235);
 		pnlEmailBody.add(txtEmailTextEditor);
 		pnlEmailBody.setVisible(false);
 		
 		JLayeredPane pnlMainBody = new JLayeredPane();
 		pnlMainBody.setBounds(20, 72, 654, 329);
 		contentPane.add(pnlMainBody);
-		pnlMainBody.setLayout(null);
+		pnlMainBody.setLayout(new BoxLayout(pnlMainBody, BoxLayout.X_AXIS));
 		
 		JPanel pnlMainBottom = new JPanel();
-		pnlMainBottom.setBounds(0, 0, 654, 329);
 		pnlMainBody.add(pnlMainBottom);
-		pnlMainBottom.setLayout(null);
+		GridBagLayout gbl_pnlMainBottom = new GridBagLayout();
+		gbl_pnlMainBottom.columnWidths = new int[]{66, 149, 419, 0};
+		gbl_pnlMainBottom.rowHeights = new int[]{322, 0};
+		gbl_pnlMainBottom.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlMainBottom.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		pnlMainBottom.setLayout(gbl_pnlMainBottom);
+		
+		listEmails = new JList();
+		listEmails.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				IEmail selEmail = getSelectedEmail();
+				txtEmailMessage.setText(selEmail.getMessageBodyString());
+			}
+		});
 		
 		JList listFolders = new JList();
 		listFolders.addListSelectionListener(new ListSelectionListener() {
@@ -192,34 +207,37 @@ public class App extends JFrame {
 				}
 			}
 		});
-	
 		
-		listFolders.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listFolders.setBounds(0, 13, 66, 305);
-		listFolders.setBackground(UIManager.getColor("Button.background"));
-		listFolders.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		listFolders.setLayoutOrientation(JList.VERTICAL_WRAP);
-		listFolders.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Inbox", "Sent", "Spam", "Trash", "Outbox"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		pnlMainBottom.add(listFolders);
-		
-		listEmails = new JList();
-		listEmails.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				IEmail selEmail = getSelectedEmail();
-				txtEmailMessage.setText(selEmail.getMessageBodyString());
-			}
-		});
+			
+			listFolders.setBorder(new LineBorder(new Color(0, 0, 0)));
+			listFolders.setBackground(UIManager.getColor("Button.background"));
+			listFolders.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			listFolders.setLayoutOrientation(JList.VERTICAL_WRAP);
+			listFolders.setModel(new AbstractListModel() {
+				String[] values = new String[] {"Inbox", "Sent", "Spam", "Trash", "Outbox"};
+				public int getSize() {
+					return values.length;
+				}
+				public Object getElementAt(int index) {
+					return values[index];
+				}
+			});
+			GridBagConstraints gbc_listFolders = new GridBagConstraints();
+			gbc_listFolders.fill = GridBagConstraints.BOTH;
+			gbc_listFolders.insets = new Insets(0, 0, 0, 5);
+			gbc_listFolders.gridx = 0;
+			gbc_listFolders.gridy = 0;
+			pnlMainBottom.add(listFolders, gbc_listFolders);
+			listFolders.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					if(listFolders.getSelectedIndex() == 1) {
+						System.out.println("test");
+					}
+				}
+			});
 		listEmails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listEmails.setBackground(UIManager.getColor("Button.background"));
-		listEmails.setBounds(76, 0, 149, 318);
 		listEmails.setModel(new AbstractListModel() {
 			String[] values = new String[] {"From: Sender..................."};
 			public int getSize() {
@@ -229,20 +247,20 @@ public class App extends JFrame {
 				return values[index];
 			}
 		});
-
-		pnlMainBottom.add(listEmails);
-		listFolders.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				if(listFolders.getSelectedIndex() == 1) {
-					System.out.println("test");
-				}
-			}
-		});
+		
+				GridBagConstraints gbc_listEmails = new GridBagConstraints();
+				gbc_listEmails.fill = GridBagConstraints.BOTH;
+				gbc_listEmails.insets = new Insets(0, 0, 0, 5);
+				gbc_listEmails.gridx = 1;
+				gbc_listEmails.gridy = 0;
+				pnlMainBottom.add(listEmails, gbc_listEmails);
 		txtEmailMessage = new JTextArea();
 		txtEmailMessage.setEditable(false);
-		txtEmailMessage.setBounds(235, -4, 419, 322);
-		pnlMainBottom.add(txtEmailMessage);
+		GridBagConstraints gbc_txtEmailMessage = new GridBagConstraints();
+		gbc_txtEmailMessage.fill = GridBagConstraints.BOTH;
+		gbc_txtEmailMessage.gridx = 2;
+		gbc_txtEmailMessage.gridy = 0;
+		pnlMainBottom.add(txtEmailMessage, gbc_txtEmailMessage);
 		pnlMainBody.setVisible(true);
 		
 		JLayeredPane pnlCalendarBody = new JLayeredPane();
