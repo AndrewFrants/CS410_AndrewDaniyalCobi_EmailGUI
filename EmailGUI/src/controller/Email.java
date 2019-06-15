@@ -126,7 +126,7 @@ public class Email implements IEmail {
 					"Mock email " + emailId, 
 					"mockaddr1@mockdomain.com, mockaddr2@mockdomain.com",
 					"mockaddr1@mockdomain.com, mockaddr2@mockdomain.com",
-					"Mock message body",
+					"Mock message body " + i,
 					attachments));
 		}
 		
