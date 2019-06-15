@@ -30,6 +30,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.JTabbedPane;
 
 public class App extends JFrame {
 
@@ -38,6 +39,9 @@ public class App extends JFrame {
 	private JTextField txtTo;
 	private JTextField txtCC;
 	private JTextField txtSubject;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -422,46 +426,22 @@ public class App extends JFrame {
 		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_2.add(list, BorderLayout.CENTER);
 		
-		JPanel pnlTabs = new JPanel();
-		pnlTabs.setBounds(10, 11, 664, 50);
-		contentPane.add(pnlTabs);
-		pnlTabs.setLayout(new GridLayout(0, 6, 0, 0));
-		
 		JButton btnMain = new JButton("Main");
-		pnlTabs.add(btnMain);
+		btnMain.setBounds(0, 0, 110, 50);
+		pnlCalendarBody.add(btnMain);
 		
 		JButton btnEmail = new JButton("Email");
-		
-		pnlTabs.add(btnEmail);
+		btnEmail.setBounds(0, 0, 110, 50);
+		pnlCalendarBody.add(btnEmail);
 		
 		JButton btnCalendar = new JButton("Calendar");
+		btnCalendar.setBounds(0, 0, 110, 50);
+		pnlCalendarBody.add(btnCalendar);
 		btnCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pnlMainBody.setVisible(false);
 				pnlEmailBody.setVisible(false);
 				pnlCalendarBody.setVisible(true);
-			}
-		});
-		pnlTabs.add(btnCalendar);
-		
-		JButton btnContacts = new JButton("Contacts");
-		pnlTabs.add(btnContacts);
-		
-		JButton btnAccounts = new JButton("Accounts");
-		pnlTabs.add(btnAccounts);
-		
-		JButton btnSettings = new JButton("Settings");
-		pnlTabs.add(btnSettings);
-		
-		pnlCalendarBody.setVisible(false);
-		btnMain.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-		pnlMainBody.setVisible(true);
-		pnlEmailBody.setVisible(false);
-		pnlCalendarBody.setVisible(false);
-	
-				
 			}
 		});
 		btnEmail.addActionListener(new ActionListener() {
@@ -473,6 +453,158 @@ public class App extends JFrame {
 				
 			}
 		});
+		btnMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+		pnlMainBody.setVisible(true);
+		pnlEmailBody.setVisible(false);
+		pnlCalendarBody.setVisible(false);
+	
+				
+			}
+		});
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 654, 61);
+		contentPane.add(tabbedPane);
+		
+		JPanel navMain = new JPanel();
+		tabbedPane.addTab("Main", null, navMain, null);
+		
+		textField = new JTextField();
+		textField.setText("Search email...");
+		textField.setColumns(20);
+		navMain.add(textField);
+		
+		JButton button = new JButton("Reply");
+		navMain.add(button);
+		
+		JButton button_1 = new JButton("Mark as Read");
+		navMain.add(button_1);
+		
+		JButton button_2 = new JButton("Delete");
+		navMain.add(button_2);
+		
+		JPanel navEmail = new JPanel();
+		tabbedPane.addTab("Email", null, navEmail, null);
+		navEmail.setLayout(null);
+		
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(0, 0, 649, 33);
+		navEmail.add(layeredPane);
+		layeredPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton button_3 = new JButton("Send");
+		layeredPane.add(button_3);
+		
+		JButton button_4 = new JButton("Save Draft");
+		button_4.setEnabled(false);
+		layeredPane.add(button_4);
+		
+		JButton button_5 = new JButton("Print");
+		button_5.setEnabled(false);
+		layeredPane.add(button_5);
+		
+		JButton button_6 = new JButton("Insert");
+		layeredPane.add(button_6);
+		
+		JButton button_7 = new JButton("Cancel");
+		layeredPane.add(button_7);
+		
+		JLayeredPane layeredPane_1 = new JLayeredPane();
+		layeredPane_1.setBounds(0, 0, 649, 33);
+		navEmail.add(layeredPane_1);
+		layeredPane_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton button_8 = new JButton("Print");
+		button_8.setEnabled(false);
+		layeredPane_1.add(button_8);
+		
+		JButton button_9 = new JButton("Export");
+		button_9.setEnabled(false);
+		layeredPane_1.add(button_9);
+		
+		JButton button_10 = new JButton("Move");
+		button_10.setEnabled(false);
+		layeredPane_1.add(button_10);
+		
+		JButton button_11 = new JButton("Delete");
+		layeredPane_1.add(button_11);
+		
+		JButton button_12 = new JButton("Reply");
+		layeredPane_1.add(button_12);
+		
+		JPanel navCalendar = new JPanel();
+		tabbedPane.addTab("Calendar", null, navCalendar, null);
+		
+		JButton button_13 = new JButton("Add");
+		button_13.setVerticalAlignment(SwingConstants.TOP);
+		button_13.setHorizontalAlignment(SwingConstants.LEFT);
+		button_13.setEnabled(false);
+		navCalendar.add(button_13);
+		
+		JButton button_14 = new JButton("Remove");
+		button_14.setHorizontalAlignment(SwingConstants.LEFT);
+		button_14.setEnabled(false);
+		navCalendar.add(button_14);
+		
+		JButton button_15 = new JButton("Cancel");
+		button_15.setVerticalAlignment(SwingConstants.TOP);
+		button_15.setHorizontalAlignment(SwingConstants.LEFT);
+		button_15.setEnabled(false);
+		navCalendar.add(button_15);
+		
+		textField_1 = new JTextField();
+		textField_1.setText("Saturday, June 1 2019");
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setEditable(false);
+		textField_1.setColumns(25);
+		navCalendar.add(textField_1);
+		
+		JPanel Contacts = new JPanel();
+		tabbedPane.addTab("Contacts", null, Contacts, null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setSelectedIndex(0);
+		Contacts.add(comboBox);
+		
+		textField_2 = new JTextField();
+		textField_2.setText("Search...");
+		textField_2.setColumns(10);
+		Contacts.add(textField_2);
+		
+		JButton button_16 = new JButton("Add Favoties");
+		button_16.setEnabled(false);
+		Contacts.add(button_16);
+		
+		JButton button_17 = new JButton("Add contact");
+		Contacts.add(button_17);
+		
+		JPanel navAccounts = new JPanel();
+		tabbedPane.addTab("Accounts", null, navAccounts, null);
+		
+		JButton button_18 = new JButton("New button");
+		navAccounts.add(button_18);
+		
+		JPanel Settings = new JPanel();
+		tabbedPane.addTab("Settings", null, Settings, null);
+		
+		JButton button_19 = new JButton("Save");
+		button_19.setVerticalAlignment(SwingConstants.TOP);
+		button_19.setHorizontalAlignment(SwingConstants.LEFT);
+		Settings.add(button_19);
+		
+		JButton button_20 = new JButton("Restore Default");
+		button_20.setHorizontalAlignment(SwingConstants.LEFT);
+		Settings.add(button_20);
+		
+		JButton button_21 = new JButton("Cancel");
+		button_21.setVerticalAlignment(SwingConstants.TOP);
+		button_21.setHorizontalAlignment(SwingConstants.LEFT);
+		button_21.setEnabled(false);
+		Settings.add(button_21);
+		
+		pnlCalendarBody.setVisible(false);
 		
 		
 		
