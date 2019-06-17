@@ -1,4 +1,4 @@
-
+package ui;
 public class Contact {
 	
 	private String firstName;

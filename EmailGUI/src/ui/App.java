@@ -1,3 +1,4 @@
+package ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -18,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import java.awt.Color;
 import javax.swing.BoxLayout;
@@ -47,9 +49,12 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 //import com.jgoodies.forms.layout.FormLayout;
 //import com.jgoodies.forms.layout.ColumnSpec;
 //import com.jgoodies.forms.layout.RowSpec;
+
 
 public class App extends JFrame {
 
@@ -139,20 +144,6 @@ public class App extends JFrame {
 		textField.setText("Search email...");
 		textField.setColumns(20);
 		navMain.add(textField);
-
-		JButton button = new JButton("Reply");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pnlMainBody.setVisible(false);
-				pnlEmailBody.setVisible(true);
-				IEmail email = getSelectedEmail();
-				txtEmailTextEditor.setText(email.getMessageBodyString());
-				txtTo.setText((String) email.getToAddresses().get(0));
-				txtSubject.setText(email.getSubject());
-				tabbedPane.setSelectedIndex(1);
-			}
-		});
-		navMain.add(button);
 
 		JButton btnOpen = new JButton("Open");
 		navMain.add(btnOpen);
@@ -249,11 +240,47 @@ public class App extends JFrame {
 		JButton button_17 = new JButton("Add contact");
 		Contacts.add(button_17);
 
+		JLayeredPane pnlAccounts = new JLayeredPane();
+		pnlAccounts.setBounds(9, 72, 665, 329);
+		contentPane.add(pnlAccounts);
+		
+		JComboBox cbAccountList = new JComboBox();
+		cbAccountList.setBounds(0, 0, 219, 20);
+		pnlAccounts.add(cbAccountList);
+		
 		JPanel navAccounts = new JPanel();
 		tabbedPane.addTab("Accounts", null, navAccounts, null);
+				
+				JButton btnAddAccount = new JButton("New Account");
+				btnAddAccount.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+				        JTextField addAccountEmail = new JTextField("");
+				        JTextField addAccountPassword = new JTextField("");
+				        JPanel panel = new JPanel(new GridLayout(0, 2));
 
-		JButton btnSwitch = new JButton("Switch Accounts");
-		navAccounts.add(btnSwitch);
+				        panel.add(new JLabel("Email: "));
+				        panel.add(addAccountEmail);
+
+				        panel.add(new JLabel("Password: "));
+				        panel.add(addAccountPassword);
+				        
+				        int result = JOptionPane.showConfirmDialog(null, panel, "Add account",
+				            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				        
+				        cbAccountList.addItem(addAccountEmail.getText());
+					}
+				});
+				btnAddAccount.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+
+					}
+				});
+				
+				navAccounts.add(btnAddAccount);
+		
+				JButton btnSwitch = new JButton("Switch Accounts");
+				navAccounts.add(btnSwitch);
 
 		JPanel Settings = new JPanel();
 		tabbedPane.addTab("Settings", null, Settings, null);
@@ -272,10 +299,6 @@ public class App extends JFrame {
 		button_21.setHorizontalAlignment(SwingConstants.LEFT);
 		button_21.setEnabled(false);
 		Settings.add(button_21);
-
-		JLayeredPane pnlAccounts = new JLayeredPane();
-		pnlAccounts.setBounds(9, 400, 1, 1);
-		contentPane.add(pnlAccounts);
 
 		JLayeredPane pnlContacts = new JLayeredPane();
 		pnlContacts.setBounds(20, 72, 654, 329);
@@ -583,6 +606,21 @@ public class App extends JFrame {
 				}
 			}
 		});
+		
+		JButton button = new JButton("Reply");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnlMainBody.setVisible(false);
+				pnlEmailBody.setVisible(true);
+				IEmail email = getSelectedEmail();
+				txtEmailTextEditor.setText(email.getMessageBodyString());
+				txtTo.setText((String) email.getToAddresses().get(0));
+				txtSubject.setText(email.getSubject());
+				tabbedPane.setSelectedIndex(1);
+			}
+		});
+		
+		navMain.add(button);
 		
 		initializeEmailList();
 		
