@@ -93,7 +93,6 @@ public class App extends JFrame {
 	 * Create the frame.
 	 */
 	public App() {
-		this.setVisible(false);
 		emailSvc = new EmailServices();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
@@ -584,8 +583,9 @@ public class App extends JFrame {
 				}
 			}
 		});
-
+		
 		initializeEmailList();
+		
 	}
 
 	public void initializeEmailList() {
