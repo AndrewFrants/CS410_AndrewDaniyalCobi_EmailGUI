@@ -6,6 +6,7 @@
 // Section A: Object model and interface to talk to UI layer (Cobi this section is WORTH reviewing)
 // Section B. Design/Implementation for reading the object model from SQL (This is the internal implementation)
 /////////////////////////////////////////////////////////////////////
+package backend;
 
 import javax.management.InvalidApplicationException;
 import java.sql.*;
